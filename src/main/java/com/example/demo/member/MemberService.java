@@ -1,7 +1,7 @@
 package com.example.demo.member;
 
 import org.springframework.stereotype.Service;
-import com.example.demo.member.dto.MemberRequest;
+import com.example.demo.common.auth.dto.SignupRequest;
 
 @Service
 public class MemberService {
@@ -9,9 +9,5 @@ public class MemberService {
 
   public MemberService(MemberRepository memberRepository) {
     this.memberRepository = memberRepository;
-  }
-
-  public void createMember(MemberRequest memberRequest) {
-    memberRepository.save(Member.makeMember(memberRequest));
   }
 }

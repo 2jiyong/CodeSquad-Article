@@ -1,4 +1,4 @@
-package com.example.demo.member.dto;
+package com.example.demo.common.auth.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MemberRequest {
+public class SignupRequest {
   @NotEmpty
   private String username;
   @NotEmpty

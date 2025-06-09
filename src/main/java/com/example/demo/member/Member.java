@@ -1,6 +1,6 @@
 package com.example.demo.member;
 
-import com.example.demo.member.dto.MemberRequest;
+import com.example.demo.common.auth.dto.SignupRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,11 +29,11 @@ public class Member {
   @Column(nullable = false, unique = true)
   private String email;
 
-  public static Member makeMember(MemberRequest memberRequest) {
+  public static Member makeMember(SignupRequest signupRequest) {
     return Member.builder()
-        .username(memberRequest.getUsername())
-        .password(memberRequest.getPassword())
-        .email(memberRequest.getEmail())
+        .username(signupRequest.getUsername())
+        .password(signupRequest.getPassword())
+        .email(signupRequest.getEmail())
         .build();
   }
 }
