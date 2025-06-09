@@ -15,8 +15,8 @@ public enum ErrorCode {
   LABEL_NOT_FOUND(404, "LABEL_NOT_FOUND", "해당 라벨을 찾을 수 없습니다."),
   // 마일스톤 관련
   MILESTONE_NOT_FOUND(404, "MILESTONE_NOT_FOUND", "해당 마일스톤을 찾을 수 없습니다."),
-  // 이슈 관련
-  ISSUE_NOT_FOUND(404, "ISSUE_NOT_FOUND", "해당 이슈를 찾을 수 없습니다."),
+  // 아티클 관련
+  ARTICLE_NOT_FOUND(404, "ARTICLE_NOT_FOUND", "해당 게시물을 찾을 수 없습니다."),
   // 인증 관련
   UNAUTHORIZED(401, "UNAUTHORIZED", "인증이 필요합니다."),
   INVALID_PASSWORD(401, "INVALID_PASSWORD", "잘못된 비밀번호입니다."),

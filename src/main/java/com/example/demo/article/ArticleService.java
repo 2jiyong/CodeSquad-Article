@@ -22,12 +22,6 @@ public class ArticleService {
     this.memberRepository = memberRepository;
   }
 
-  private static final Member DEFAULT_MEMBER = Member.builder()
-      .id(1L)
-      .username("defaultUser")
-      .password("defaultPassword")
-      .build();
-
   @Transactional
   public void addArticle(ArticleRequest request, Long userId) {
     Article article = Article.builder()

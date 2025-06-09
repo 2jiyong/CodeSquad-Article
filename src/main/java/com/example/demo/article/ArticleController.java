@@ -37,15 +37,16 @@ public class ArticleController {
   @PostMapping
   public ResponseEntity<Void> addArticle(@Valid @RequestBody ArticleRequest articleRequest,
       HttpServletRequest request) {
-    Long id = AuthUtils.extractUserId(request);
-    articleService.addArticle(articleRequest, id);
+    Long userId = AuthUtils.extractUserId(request);
+    articleService.addArticle(articleRequest, userId);
     return ResponseEntity.status(201).build();
   }
 
   @PostMapping("/{id}/comments")
   public ResponseEntity<Void> addComment(@Valid @RequestBody CommentRequest commentRequest,
-      @PathVariable Long id) {
-    commentService.addComment(commentRequest, id);
+      @PathVariable Long id, HttpServletRequest request) {
+    Long userId = AuthUtils.extractUserId(request);
+    commentService.addComment(commentRequest, id, userId);
     return ResponseEntity.status(201).build();
   }
 }
