@@ -2,10 +2,12 @@ package com.example.demo.comment;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import com.example.demo.article.Article;
 import com.example.demo.member.Member;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +34,7 @@ public class Comment {
   @JoinColumn(name = "author", nullable = false)
   private Member author;
 
-  @ManyToOne(optional = false)
+  @ManyToOne(cascade = CascadeType.ALL, optional = false)
   @JoinColumn(name = "article", nullable = false)
   private Article article;
 
