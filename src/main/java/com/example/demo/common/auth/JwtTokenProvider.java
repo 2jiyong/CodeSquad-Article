@@ -14,7 +14,7 @@ import jakarta.annotation.PostConstruct;
 
 @Component
 public class JwtTokenProvider {
-  private static final String base64Secret = "bXktdmVyeS1zZWNyZXQta2V5";
+  private static final String base64Secret = "thisIsASecretKeyThatIsAtLeast32BytesLongaaa";
 
   private final long validityInMs = 6 * 3600000;
   private Key key;
