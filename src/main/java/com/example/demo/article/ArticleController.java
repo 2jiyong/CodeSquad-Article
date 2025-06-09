@@ -11,7 +11,9 @@ import com.example.demo.article.dto.ArticleListResponse;
 import com.example.demo.article.dto.ArticleRequest;
 import com.example.demo.comment.CommentService;
 import com.example.demo.comment.dto.CommentRequest;
+import com.example.demo.common.auth.AuthUtils;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,8 +35,10 @@ public class ArticleController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> addArticle(@Valid @RequestBody ArticleRequest articleRequest) {
-    articleService.addArticle(articleRequest);
+  public ResponseEntity<Void> addArticle(@Valid @RequestBody ArticleRequest articleRequest,
+      HttpServletRequest request) {
+    Long id = AuthUtils.extractUserId(request);
+    articleService.addArticle(articleRequest, id);
     return ResponseEntity.status(201).build();
   }
 

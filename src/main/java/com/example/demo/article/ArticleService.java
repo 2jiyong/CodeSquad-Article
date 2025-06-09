@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.article.dto.ArticleListResponse;
 import com.example.demo.article.dto.ArticleRequest;
 import com.example.demo.article.dto.ArticleResponse;
+import com.example.demo.common.excepition.ErrorCode;
+import com.example.demo.common.excepition.NotFoundException;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberRepository;
 
@@ -21,17 +23,19 @@ public class ArticleService {
   }
 
   private static final Member DEFAULT_MEMBER = Member.builder()
-  .id(1L)
-  .username("defaultUser")
-  .password("defaultPassword")
-  .build();
+      .id(1L)
+      .username("defaultUser")
+      .password("defaultPassword")
+      .build();
 
   @Transactional
-  public void addArticle(ArticleRequest request) {
+  public void addArticle(ArticleRequest request, Long userId) {
     Article article = Article.builder()
         .title(request.getTitle())
         .content(request.getContent())
-        .author(DEFAULT_MEMBER) //TODO: 로그인 기능 구현 후 수정
+        .author(memberRepository.findById(userId)
+            .orElseThrow(() -> new NotFoundException(
+            ErrorCode.USER_NOT_FOUND)))
         .build();
 
     articleRepository.save(article);
