@@ -9,7 +9,6 @@ import com.example.demo.article.dto.ArticleRequest;
 import com.example.demo.article.dto.ArticleResponse;
 import com.example.demo.common.excepition.ErrorCode;
 import com.example.demo.common.excepition.NotFoundException;
-import com.example.demo.member.Member;
 import com.example.demo.member.MemberRepository;
 
 @Service
@@ -51,5 +50,17 @@ public class ArticleService {
     return ArticleListResponse.builder()
         .articles(articleResponses)
         .build();
+  }
+
+  @Transactional
+  public void deleteArticle(Long id, Long userId) {
+    Article article = articleRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException(ErrorCode.ARTICLE_NOT_FOUND));
+
+    if (!article.getAuthor().getId().equals(userId)) {
+      throw new NotFoundException(ErrorCode.UNAUTHORIZED);
+    }
+
+    articleRepository.delete(article);
   }
 }
