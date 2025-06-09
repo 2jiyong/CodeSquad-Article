@@ -2,6 +2,8 @@ package com.example.demo.article;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.article.dto.ArticleListResponse;
@@ -52,7 +54,12 @@ public class ArticleService {
         .build();
   }
 
-  @Transactional
+  @Transactional(readOnly = true)
+  public Page<Article> getAllArticles(Pageable pageable) {
+    return articleRepository.findAll(pageable);
+  }
+
+    @Transactional
   public void deleteArticle(Long id, Long userId) {
     Article article = articleRepository.findById(id)
         .orElseThrow(() -> new NotFoundException(ErrorCode.ARTICLE_NOT_FOUND));
