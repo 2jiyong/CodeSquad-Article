@@ -95,7 +95,7 @@ public class ArticleController {
 
   @PostMapping(value = "/{id}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<Void> uploadImage(@PathVariable Long id,
-      @RequestPart("image") MultipartFile image, HttpServletRequest request) {
+      @ModelAttribute("image") MultipartFile image, HttpServletRequest request) {
     Long userId = AuthUtils.extractUserId(request);
     imageService.uploadImage(id, image, userId);
     return ResponseEntity.status(201).build();

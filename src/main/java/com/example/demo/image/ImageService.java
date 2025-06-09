@@ -1,11 +1,16 @@
 package com.example.demo.image;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.article.ArticleRepository;
 import com.example.demo.common.excepition.ErrorCode;
 import com.example.demo.common.excepition.NotFoundException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ImageService {
   private final ImageRepository imageRepository;
@@ -15,6 +20,7 @@ public class ImageService {
     this.imageRepository = imageRepository;
     this.articleRepository = articleRepository;
   }
+
   public Image uploadImage(Long id, MultipartFile imageFile, Long userId) {
     Image image = Image.builder()
         .imageBinaryData(convert(imageFile))
@@ -22,6 +28,7 @@ public class ImageService {
             ErrorCode.ARTICLE_NOT_FOUND)))
         .build();
 
+    log.info("이미지 바이너리: {}", Arrays.toString(image.getImageBinaryData()));
     return imageRepository.save(image);
   }
 
