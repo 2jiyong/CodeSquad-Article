@@ -31,11 +31,11 @@ public class Comment {
   private Long id;
 
   @ManyToOne(optional = false)
-  @JoinColumn(name = "author", nullable = false)
+  @JoinColumn(name = "author_id", nullable = false)
   private Member author;
 
   @ManyToOne(cascade = CascadeType.ALL, optional = false)
-  @JoinColumn(name = "article", nullable = false)
+  @JoinColumn(name = "article_id", nullable = false)
   private Article article;
 
   @Column(nullable = false, length = 500)

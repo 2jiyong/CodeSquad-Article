@@ -34,7 +34,7 @@ public class Article {
   @Column(nullable = false)
   private String content;
   @ManyToOne(optional = false)
-  @JoinColumn(name = "author", nullable = false)
+  @JoinColumn(name = "author_id", nullable = false)
   private Member author;
   @CreationTimestamp
   @Column(nullable = false, length = 20, updatable = false)
