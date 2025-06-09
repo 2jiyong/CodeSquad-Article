@@ -2,6 +2,7 @@ package com.example.demo.article;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.article.dto.ArticleRequest;
+import com.example.demo.comment.Comment;
 import com.example.demo.comment.CommentService;
 import com.example.demo.comment.dto.CommentRequest;
 import com.example.demo.common.auth.AuthUtils;
@@ -65,5 +68,13 @@ public class ArticleController {
     Long userId = AuthUtils.extractUserId(request);
     articleService.updateArticle(articleRequest, id, userId);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/{id}/comments")
+  public ResponseEntity<Slice<Comment>> getArticleDetail(@PathVariable Long id,
+      @RequestParam(required = false, defaultValue = "10") int size,
+      @RequestParam(name = "lastItemId", required = false) Long lastItemId) {
+    Slice<Comment> comments = commentService.getCommentsByArticleId(id, size, lastItemId);
+    return ResponseEntity.ok(comments);
   }
 }
