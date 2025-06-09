@@ -6,12 +6,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.demo.article.dto.ArticleDetailResponse;
 import com.example.demo.article.dto.ArticleListResponse;
 import com.example.demo.article.dto.ArticleRequest;
 import com.example.demo.article.dto.ArticleResponse;
 import com.example.demo.common.excepition.ErrorCode;
 import com.example.demo.common.excepition.NotFoundException;
+import com.example.demo.member.Member;
 import com.example.demo.member.MemberRepository;
+import com.example.demo.member.dto.MemberResponse;
 
 @Service
 public class ArticleService {
@@ -81,5 +84,25 @@ public class ArticleService {
     }
 
     article.update(request.getTitle(), request.getContent());
+  }
+
+  @Transactional(readOnly = true)
+  public ArticleDetailResponse findArticleById(Long id) {
+    Article article = articleRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException(ErrorCode.ARTICLE_NOT_FOUND));
+    Member author = article.getAuthor();
+    MemberResponse memberResponse = MemberResponse.builder()
+        .id(author.getId())
+        .username(author.getUsername())
+        .email(author.getEmail())
+        .build();
+
+    return ArticleDetailResponse.builder()
+        .id(article.getId())
+        .title(article.getTitle())
+        .content(article.getContent())
+        .memberResponse(memberResponse)
+        .createdAt(article.getCreatedAt())
+        .build();
   }
 }

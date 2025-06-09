@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.article.dto.ArticleDetailResponse;
 import com.example.demo.article.dto.ArticleRequest;
 import com.example.demo.comment.Comment;
 import com.example.demo.comment.CommentService;
@@ -53,6 +54,12 @@ public class ArticleController {
     Long userId = AuthUtils.extractUserId(request);
     commentService.addComment(commentRequest, id, userId);
     return ResponseEntity.status(201).build();
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<ArticleDetailResponse> getArticleById(@PathVariable Long id) {
+    ArticleDetailResponse articleDetailResponse = articleService.findArticleById(id);
+    return ResponseEntity.ok(articleDetailResponse);
   }
 
   @DeleteMapping("/{id}")
