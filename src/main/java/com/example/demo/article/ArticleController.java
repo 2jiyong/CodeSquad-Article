@@ -21,12 +21,11 @@ public class ArticleController {
     this.articleService = articleService;
   }
 
-//  @GetMapping
-//  public ResponseEntity<ArticleListResponse> getAllArticles() {
-//    // This method should return all articles from the database.
-//    // For now, we will return an empty list as a placeholder.
-//    return ResponseEntity.ok();
-//  }
+  @GetMapping
+  public ResponseEntity<ArticleListResponse> getAllArticles() {
+    ArticleListResponse articleListResponse = articleService.getAllArticles();
+    return ResponseEntity.ok(articleListResponse);
+  }
 
   @PostMapping
   public ResponseEntity<Void> addArticle(@Valid @RequestBody ArticleRequest articleRequest) {

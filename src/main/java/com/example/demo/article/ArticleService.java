@@ -3,6 +3,7 @@ package com.example.demo.article;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.article.dto.ArticleListResponse;
 import com.example.demo.article.dto.ArticleRequest;
 import com.example.demo.article.dto.ArticleResponse;
@@ -25,6 +26,7 @@ public class ArticleService {
   .password("defaultPassword")
   .build();
 
+  @Transactional
   public void addArticle(ArticleRequest request) {
     Article article = Article.builder()
         .title(request.getTitle())
@@ -33,5 +35,23 @@ public class ArticleService {
         .build();
 
     articleRepository.save(article);
+  }
+
+  @Transactional(readOnly = true)
+  public ArticleListResponse getAllArticles() {
+    List<Article> articles = articleRepository.findAll();
+    List<ArticleResponse> articleResponses = articles.stream()
+        .map(a -> ArticleResponse.builder()
+            .id(a.getId())
+            .title(a.getTitle())
+            .content(a.getContent())
+            .authorName(a.getAuthor().getUsername())
+            .createdAt(a.getCreatedAt())
+            .build())
+        .toList();
+
+    return ArticleListResponse.builder()
+        .articles(articleResponses)
+        .build();
   }
 }
