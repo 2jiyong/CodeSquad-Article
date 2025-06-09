@@ -15,6 +15,7 @@ public class ArticleService {
     Article article = Article.builder()
         .title(request.getTitle())
         .content(request.getContent())
+        .authorId(1L) //TODO: 로그인 기능 구현 후 수정
         .build();
 
     articleRepository.save(article);
