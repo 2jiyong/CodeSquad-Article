@@ -63,4 +63,16 @@ public class ArticleService {
 
     articleRepository.delete(article);
   }
+
+  @Transactional
+  public void updateArticle(ArticleRequest request, Long id, Long userId) {
+    Article article = articleRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException(ErrorCode.ARTICLE_NOT_FOUND));
+
+    if (!article.getAuthor().getId().equals(userId)) {
+      throw new NotFoundException(ErrorCode.UNAUTHORIZED);
+    }
+
+    article.update(request.getTitle(), request.getContent());
+  }
 }

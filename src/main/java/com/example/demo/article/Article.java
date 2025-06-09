@@ -39,4 +39,9 @@ public class Article {
   @CreationTimestamp
   @Column(nullable = false, length = 20, updatable = false)
   private LocalDateTime createdAt;
+
+  public void update(String title, String content) {
+    this.title = title;
+    this.content = content;
+  }
 }
