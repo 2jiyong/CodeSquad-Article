@@ -1,1 +1,1 @@
-<img width="3168" height="1344" alt="possport" src="https://github.com/user-attachments/assets/42ae2bc9-b46c-4ebd-8459-fe41bee01ea7" />
+<img width="1280" height="543" alt="KakaoTalk_20251207_134817368" src="https://github.com/user-attachments/assets/0a1aa994-7579-463d-8888-2629b4a43d4d" />
